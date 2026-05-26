@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BlogNest</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h2>BlogNest</h2>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="create.html">Create Post</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="admin.html">Admin</a>
+    <a href="login.html">Login</a>
+    <a href="#" onclick="logout()">Logout</a>
+    <a href="register.html">Register</a>
+    <p id="datetime"></p>
+    <button class="theme-toggle"onclick="toggleTheme()">🌙</button>
+    
+  </nav>
+</header>
+<section class="hero">
+  <h1>Welcome To BlogNest</h1>
+  <p>Discover modern blogs, share your ideas and connect with creative writers around the world.</p>
+  <a href="create.html" class="btn">Start Writing</a>
+</section>
+<section class="features">
+<section class="features">
+
+<a href="create.html" class="feature-card">
+<h3>📝 Write Blogs</h3>
+<p>Create and publish your own blogs easily.</p>
+</a>
+
+<a href="#post-list" class="feature-card">
+<h3>🔍 Explore Topics</h3>
+<p>Browse blogs by technology, coding and more.</p>
+</a>
+
+<a href="#post-list" class="feature-card">
+<h3>💬 Connect Users</h3>
+<p>Like, comment and interact with readers.</p>
+</a>
+
+</section>
+
+
+</section>
+<section class="hero">
+  <div>
+    <h1>Write, Explore & Inspire</h1>
+    <p>Create blogs,explore categories,interact with readers and grow your blogging journey with BlogNest.</p>
+    <a href="register.html" class="btn">Get Started</a>
+  </div>
+</section>
+<div class="search-box">
+  <input type="text" id="search" placeholder="Search blogs..." onkeyup="searchPosts()">
+</div>
+<div class="search-box">
+  <select id="categoryFilter" onchange="filterCategory()">
+    <option value="All">All Categories</option>
+    <option value="Technology">Technology</option>
+    <option value="Programming">Programming</option>
+    <option value="Business">Business</option>
+    <option value="Travel">Travel</option>
+    <option value="Sports">Sports</option>
+  </select>
+</div>
+
+<section class="blogs">
+  <h2>Latest Blogs</h2>
+
+  <div id="post-list"><div>
+
+  </section>
+
+  <div class="card">
+
+   <P id="message" style="color:green;margin-top:10px;"></P>
+    <div class="comments"></div>
+  </div>
+</section>
+<section class="about">
+<h2>About BlogNest</h2>
+
+<p>
+BlogNest is a modern blogging platform where users can create,
+share and explore blogs with comments and categories.
+</p>
+
+</section>
+<footer>
+  <p>© 2026 BlogNest | Modern Blog Platform</p>
+</footer>
+<script src="script.js"></script>
+<script>
+    showPosts();
+</script>
+</body>
+</html>

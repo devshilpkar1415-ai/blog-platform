@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body onload="checkLogin()"></body>
+<header>
+  <h2>BlogNest</h2>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="create.html">Create Post</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="login.html">Login</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </nav>
+</header>
+
+<section class="hero"></section>
+  <h1>id="welcome"></h1>
+  <p>Manage your blog posts and profile here.</p>
+</section>
+
+<div class="card">
+  <h2>Total Posts</h2>
+  <p>5 Posts Created</p>
+</div>
+
+<div class="card">
+  <h2>Recent Activity</h2>
+  <p>You published a new blog recently.</p>
+</div>
+
+<footer>
+  <p>© 2026 BlogNest | Dashboard</p>
+</footer>
+
+<script>
+const token = localStorage.getItem("token");
+
+if(!token){
+    alert("Please login first");
+    window.location.href = "login.html";
+}
+</script>
+<script>
+document.getElementById("welcome").innerHTML =
+"Welcome " + localStorage.getItem("username");
+</script>
+</body>
+</html>
