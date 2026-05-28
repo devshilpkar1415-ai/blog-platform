@@ -18,36 +18,52 @@
   </nav>
 </header>
 
-<section class="hero"></section>
-  <h1>id="welcome"></h1>
-  <p>Manage your blog posts and profile here.</p>
+<section class="hero dashboard-hero">
+    <h1 id="welcome"></h1>
+
+    <p style="text-align:center; width:100%; margin:15px auto 0 auto; display:block;">
+    Manage your blog posts and profile here.
+</p>
 </section>
 
-<div class="card">
-  <h2>Total Posts</h2>
-  <p>5 Posts Created</p>
-</div>
+<section class="features">
 
-<div class="card">
-  <h2>Recent Activity</h2>
-  <p>You published a new blog recently.</p>
-</div>
+  <a href="create.html" class="feature-card">
+    <h3>📝 Write Blogs</h3>
+    <p>Create and publish your own blogs easily.</p>
+  </a>
+
+  <a href="index.html#post-list" class="feature-card">
+  <h3>🔍 Explore Topics</h3>
+  <p>Browse blogs by technology, coding and more.</p>
+</a>
+
+<a href="index.html#post-list"
+ class="feature-card">
+  <h3>💬 Connect Users</h3>
+  <p>Like, comment and interact with
+     readers.</p>
+</a>
+</section>
 
 <footer>
   <p>© 2026 BlogNest | Dashboard</p>
 </footer>
 
 <script>
-const token = localStorage.getItem("token");
 
-if(!token){
-    alert("Please login first");
-    window.location.href = "login.html";
+const email = localStorage.getItem("userEmail");
+
+if(email){
+
+    const username = email.split("@")[0];
+
+    document.getElementById("welcome").innerText =
+    "Welcome " + username;
 }
+
 </script>
-<script>
-document.getElementById("welcome").innerHTML =
-"Welcome " + localStorage.getItem("username");
-</script>
+
+
 </body>
 </html>

@@ -16,13 +16,22 @@
     
   </nav>
 </header>
-<section class="hero"></section>
-  <h1>Welcome To BlogNest</h1>
-  <p>Discover modern blogs, share your ideas and connect with creative writers around the world.</p>
+<section class="hero">
+
+<div>
+    <h1>Welcome To BlogNest</h1>
+
+  <p>Discover modern blogs, share your ideas and connect
+     with creative writers around the world.
+    </p>
+
   <a href="create.html" class="btn">Start Writing</a>
+
+  <div>
+
 </section>
 <section class="features">
-<section class="features">
+
 
 <a href="create.html" class="feature-card">
 <h3>📝 Write Blogs</h3>
@@ -92,6 +101,13 @@ share and explore blogs with comments and categories.
 <script src="script.js"></script>
 <script>
     showPosts();
+</script>
+<script>
+const loggedInUser = localStorage.getItem("loggedInUser");
+
+if (!loggedInUser) {
+    window.location.href = "login.html";
+}
 </script>
 </body>
 </html>

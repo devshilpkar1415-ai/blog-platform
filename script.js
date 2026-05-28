@@ -24,6 +24,9 @@ async function loginUser() {
 
   const email =
   document.getElementById("login-email").value;
+   
+  localStorage.setItem("userEmail", 
+    email);
 
   const password =
   document.getElementById("login-password").value;
