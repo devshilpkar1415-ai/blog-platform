@@ -103,9 +103,9 @@ share and explore blogs with comments and categories.
     showPosts();
 </script>
 <script>
-const loggedInUser = localStorage.getItem("loggedInUser");
+const token = localStorage.getItem("token");
 
-if (!loggedInUser) {
+if (!token) {
     window.location.href = "login.html";
 }
 </script>
