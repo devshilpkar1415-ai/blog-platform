@@ -134,7 +134,9 @@ async function showPosts() {
 
   posts.forEach(post => {
     postList.innerHTML += `
-<div class="card">
+<div class="card"
+ data-category="$
+{post.category?.toLowerCase()}">
   <h3>${post.title || "No Title"}</h3>
   <p>${post.content || "No Content"}</p>
   <p><b>Author:</b> ${post.author || "Dev Shilpkar"}</p>
@@ -248,18 +250,7 @@ function checkLogin() {
         window.location.href = "login.html";
     }
 }
-function filterCategory() {
-  const selected = document.getElementById("categoryFilter").value;
-  const cards = document.querySelectorAll(".card");
 
-  cards.forEach(card => {
-    if (selected === "All" || card.innerText.includes(selected)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
 function openBlog(event) {
 
 const card = event.target.closest(".card");
@@ -269,6 +260,36 @@ if (!card) return;
 localStorage.setItem("selectedBlog", card.innerHTML);
 
 window.location.href = "blog.html";
+}
+
+function filterCategory() {
+
+    const selected =
+    document.getElementById("categoryFilter")
+    .value
+    .toLowerCase();
+
+    const cards =
+    document.querySelectorAll(".card, .post-card");
+
+    cards.forEach(card => {
+
+        const cardText =
+        card.innerText.toLowerCase();
+
+        if (
+            selected === "all" ||
+            cardText.includes(selected)
+        ) {
+
+            card.style.display = "block";
+
+        } else {
+
+            card.style.display = "none";
+        }
+
+    });
 
 }
 function addComment(button) {
@@ -308,4 +329,18 @@ commentsDiv.appendChild(comment);
 
 textarea.value = "";
 
+}
+function filterCategory() {
+    const selectedCategory = document.getElementById("categoryFilter").value;
+    const posts = document.querySelectorAll(".post-card");
+
+    posts.forEach(post => {
+        const postCategory = post.getAttribute("data-category");
+
+        if (selectedCategory === "All" || postCategory === selectedCategory) {
+            post.style.display = "block";
+        } else {
+            post.style.display = "none";
+        }
+    });
 }

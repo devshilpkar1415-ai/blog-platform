@@ -81,11 +81,18 @@ button,
   transition:0.3s;
   margin-top:10px;
 }
+
 .theme-toggle{
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    border: none;
+    background: #4fc3ff;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 button:hover,
@@ -570,4 +577,13 @@ color:#ddd;
     width: 100%;
     display: block;
     margin: 0 auto;
+}
+nav{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.theme-toggle{
+    margin-left: 10px;
 }
