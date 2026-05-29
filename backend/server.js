@@ -10,9 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const User = require("./models/User");
-const Post = require("./models/Post");
-const Comment = require("./models/Comment");
+const User = require("./models/user");
+const Post = require("./models/post");
+const Comment = require("./models/comment");
 
 mongoose.connect("mongodb://devshilpkar1415_db_user:devdp@ac-9mflj8m-shard-00-00.6sjchz3.mongodb.net:27017,ac-9mflj8m-shard-00-01.6sjchz3.mongodb.net:27017,ac-9mflj8m-shard-00-02.6sjchz3.mongodb.net:27017/blogDB?ssl=true&replicaSet=atlas-anfrce-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0")
 .then(() => console.log("MongoDB Connected"))
