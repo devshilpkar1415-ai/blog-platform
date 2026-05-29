@@ -1,11 +1,10 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 require("dotenv").config();
+
 const app = express();
 
 app.use(express.json());
@@ -13,169 +12,109 @@ app.use(cors());
 
 const User = require("./models/user");
 const Post = require("./models/post");
-const Comment = require("./models/comment");
 
-mongoose.connect(process.env.MONGO_URI)
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.log(err));
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log("MongoDB Error:", err.message));
 
 app.get("/", (req, res) => {
   res.send("Blog API Running");
 });
+
 app.post("/register", async (req, res) => {
   try {
-   const existingUser = await User.findOne({
-    email: req.body.email
-});
+    const { username, email, password } = req.body;
 
-if(existingUser){
-    return res.json("Email already registered");
-}
+    if (!username || !email || !password) {
+      return res.json({ message: "All fields are required" });
+    }
 
-const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const existingUser = await User.findOne({ email });
 
-const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: hashedPassword
-});
+    if (existingUser) {
+      return res.json({ message: "Email already registered" });
+    }
 
-await user.save();
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-res.json("User Registered");
-  } catch (err) {  
-res.json({ message: err.message });
+    const user = new User({
+      username,
+      email,
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    res.json({ message: "User Registered" });
+  } catch (err) {
+    res.json({ message: err.message });
   }
 });
 
-
 app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
 
-    const user = await User.findOne({
-        email: req.body.email
-    });
+    const user = await User.findOne({ email });
 
-    if(!user){
-        return res.json("User not found");
+    if (!user) {
+      return res.json({ message: "User not found" });
     }
 
-    const isMatch = await bcrypt.compare(
-        req.body.password,
-        user.password
-    );
+    const isMatch = await bcrypt.compare(password, user.password);
 
-    if(!isMatch){
-        return res.json("Wrong password");
+    if (!isMatch) {
+      return res.json({ message: "Wrong password" });
     }
 
-    const token = jwt.sign(
-        { id: user._id },
-        "secretkey"
-    );
+    const token = jwt.sign({ id: user._id }, "secretkey");
 
     res.json({
-        message: "Login Success",
-        token: token
+      message: "Login Success",
+      token,
     });
-
+  } catch (err) {
+    res.json({ message: err.message });
+  }
 });
 
 app.post("/create-post", async (req, res) => {
-  console.log(req.body);
-
   try {
     const post = new Post({
       title: req.body.title,
       content: req.body.content,
       author: req.body.author,
+      category: req.body.category,
       image: req.body.image,
     });
 
     await post.save();
-    res.json("Post Created");
+    res.json({ message: "Post Created" });
   } catch (err) {
-    res.json(err);
+    res.json({ message: err.message });
   }
 });
 
-// Show all posts
 app.get("/posts", async (req, res) => {
   try {
     const posts = await Post.find();
     res.json(posts);
   } catch (err) {
-    res.json(err);
+    res.json({ message: err.message });
   }
 });
 
-// Edit post
-app.put("/edit-post/:id", async (req, res) => {
+app.put("/like-post/:id", async (req, res) => {
   try {
-    await Post.findByIdAndUpdate(req.params.id, req.body);
-    res.json("Post Updated");
-  } catch (err) {
-    res.json(err);
-  }
-});
-
-// Delete post
-app.delete("/delete-post/:id", async (req, res) => {
-  try {
-    await Post.findByIdAndDelete(req.params.id);
-    res.json("Post Deleted");
-  } catch (err) {
-    res.json(err);
-  }
-});
-app.put("/edit-post/:id", async (req, res) => {
-  try {
-    await Post.findByIdAndUpdate(req.params.id, {
-      title: req.body.title,
-      content: req.body.content
-    });
-
-    res.json("Post Updated");
-  } catch (err) {
-    res.json(err);
-  }
-});
-app.delete("/delete-post/:id", async (req, res) => {
-  try {
-    await Post.findByIdAndDelete(req.params.id);
-    res.json("Post Deleted");
-  } catch (err) {
-    res.json(err);
-  }
-});
-app.get("/posts", async (req, res) => {
-  try {
-    const posts = await Post.find();
-    res.json(posts);
-  } catch (err) {
-    res.json(err);
-  }
-});app.put("/like-post/:id", async (req, res) => {
-
-  try {
-
-    const post =
-    await Post.findById(req.params.id);
-
-    post.likes += 1;
-
+    const post = await Post.findById(req.params.id);
+    post.likes = (post.likes || 0) + 1;
     await post.save();
 
-    res.json("Post Liked");
-
+    res.json({ message: "Post Liked" });
+  } catch (err) {
+    res.json({ message: err.message });
   }
-
-  catch(err){
-    res.json(err);
-  }
-
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-});
-
+module.exports = app;
