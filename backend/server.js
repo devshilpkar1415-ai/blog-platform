@@ -15,7 +15,7 @@ const User = require("./models/user");
 const Post = require("./models/post");
 const Comment = require("./models/comment");
 
-mongoose.connect(process.env.mongo_URI)
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
@@ -44,7 +44,7 @@ await user.save();
 
 res.json("User Registered");
   } catch (err) {  
-res.json(err);
+res.json({ message: err.message });
   }
 });
 
@@ -97,22 +97,7 @@ app.post("/create-post", async (req, res) => {
     res.json(err);
   }
 });
-app.post("/login", async (req, res) => {
-  try {
-    const user = await User.findOne({
-      email: req.body.email,
-      password: req.body.password
-    });
 
-    if (user) {
-      res.json("Login Successful");
-    } else {
-      res.json("Invalid Email or Password");
-    }
-  } catch (err) {
-    res.json(err);
-  }
-});
 // Show all posts
 app.get("/posts", async (req, res) => {
   try {
