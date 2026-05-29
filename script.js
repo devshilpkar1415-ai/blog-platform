@@ -72,6 +72,7 @@ async function createPost() {
 
   
 
+
   const response = await fetch("https://blog-backend-ashen-eight.vercel.app/create-post", {
     method: "POST",
     headers: {
@@ -349,4 +350,12 @@ function filterCategory() {
             post.style.display = "none";
         }
     });
+}
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("userEmail");
+
+  alert("Logged out successfully");
+  window.location.href = "login.html";
 }
