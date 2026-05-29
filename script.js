@@ -18,7 +18,8 @@ async function registerUser() {
   });
 
   const data = await response.json();
-  alert(JSON.stringify(data));
+  console.log(data);
+  alert(JSON.stringify(data, null,2));
 }
 async function loginUser() {
 
@@ -198,7 +199,7 @@ async function loadPosts() {
 
   const postList = document.getElementById("post-list");
   if (!postList) return;
-  
+
   postList.innerHTML = "";
 
   posts.forEach((post) => {
@@ -219,7 +220,9 @@ loadPosts();
 function logout() {
   alert("Logged out successfully");
   window.location.href = "login.html";
+  
 }
+
 function searchPosts() {
 
     const input = document.getElementById("search").value.toLowerCase();
