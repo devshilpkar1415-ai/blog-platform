@@ -204,12 +204,15 @@ async function loadPosts() {
 
   posts.forEach((post) => {
 
-    postList.innerHTML += `
+
+    BlogContainer.innerHTML += `
     
     <div class="card">
       <h3>${post.title}</h3>
       <p>${post.content}</p>
       <p><b>Author:</b> ${post.author}</p>
+    
+        
     </div>
 
     `;
@@ -217,11 +220,8 @@ async function loadPosts() {
 }
 
 loadPosts();
-function logout() {
-  alert("Logged out successfully");
-  window.location.href = "login.html";
   
-}
+
 
 function searchPosts() {
 
