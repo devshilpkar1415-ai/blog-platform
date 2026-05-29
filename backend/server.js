@@ -5,6 +5,7 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+require("dotenv").config();
 const app = express();
 
 app.use(express.json());
@@ -14,7 +15,7 @@ const User = require("./models/user");
 const Post = require("./models/post");
 const Comment = require("./models/comment");
 
-mongoose.connect("mongodb://devshilpkar1415_db_user:devdp@ac-9mflj8m-shard-00-00.6sjchz3.mongodb.net:27017,ac-9mflj8m-shard-00-01.6sjchz3.mongodb.net:27017,ac-9mflj8m-shard-00-02.6sjchz3.mongodb.net:27017/blogDB?ssl=true&replicaSet=atlas-anfrce-shard-0&authSource=admin&retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.mongo_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 

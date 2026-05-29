@@ -5,7 +5,7 @@ async function registerUser() {
 
   
 
-  const response = await fetch("http://localhost:5000/register", {
+  const response = await fetch("https://blog-backend-ashen-eight.vercel.app/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -31,7 +31,7 @@ async function loginUser() {
   const password =
   document.getElementById("login-password").value;
 
-  const response = await fetch("http://localhost:5000/login", {
+  const response = await fetch("https://blog-backend-ashen-eight.vercel.app/login", {
 
     method: "POST",
 
@@ -50,7 +50,7 @@ async function loginUser() {
 
   alert(data.message || data);
 
-  localStorage.setItem("username", email);
+  localStorage.setItem("username", email.split("@")[0]);
 
   if(data.token){
 
@@ -72,7 +72,7 @@ async function createPost() {
 
   
 
-  const response = await fetch("http://localhost:5000/create-post", {
+  const response = await fetch("https://blog-backend-ashen-eight.vercel.app/create-post", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -102,7 +102,7 @@ async function addComment(button) {
     return;
   }
 
-  const response = await fetch("http://localhost:5000/comment", {
+  const response = await fetch("https://blog-backend-ashen-eight.vercel.app/comment", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -126,10 +126,12 @@ async function addComment(button) {
   alert("Comment Added");
 }
 async function showPosts() {
-  const response = await fetch("http://localhost:5000/posts");
+  const response = await fetch("https://blog-backend-ashen-eight.vercel.app/posts");
   const posts = await response.json();
 
   const postList = document.getElementById("post-list");
+  if (!postList) return;
+
   postList.innerHTML = "";
 
   posts.forEach(post => {
@@ -156,7 +158,7 @@ async function showPosts() {
 }
 async function likePost(id){
 
-  await fetch(`http://localhost:5000/like-post/${id}`,{
+  await fetch(`https://blog-backend-ashen-eight.vercel.app/like-post/${id}`,{
     method:"PUT"
   });
 
@@ -167,7 +169,7 @@ async function editPost(id) {
   const title = prompt("Enter new title:");
   const content = prompt("Enter new content:");
 
-  const response = await fetch(`http://localhost:5000/edit-post/${id}`, {
+  const response = await fetch(`https://blog-backend-ashen-eight.vercel.app/edit-post/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -180,7 +182,7 @@ async function editPost(id) {
   showPosts();
 }
 async function deletePost(id) {
-  const response = await fetch(`http://localhost:5000/delete-post/${id}`, {
+  const response = await fetch(`https://blog-backend-ashen-eight.vercel.app/delete-post/${id}`, {
     method: "DELETE"
   });
 
@@ -191,11 +193,12 @@ async function deletePost(id) {
 showPosts();
 async function loadPosts() {
 
-  const response = await fetch("http://localhost:5000/posts");
+  const response = await fetch("https://blog-backend-ashen-eight.vercel.app/posts");
   const posts = await response.json();
 
   const postList = document.getElementById("post-list");
-
+  if (!postList) return;
+  
   postList.innerHTML = "";
 
   posts.forEach((post) => {
