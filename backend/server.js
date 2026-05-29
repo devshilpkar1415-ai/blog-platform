@@ -118,3 +118,16 @@ app.put("/like-post/:id", async (req, res) => {
 });
 
 module.exports = app;
+app.delete("/delete-post/:id", async (req, res) => {
+    try {
+        await Post.findByIdAndDelete(req.params.id);
+
+        res.json({
+            message: "Post Deleted"
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: err.message
+        });
+    }
+});

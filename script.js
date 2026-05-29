@@ -212,14 +212,31 @@ async function loadPosts() {
       <h3>${post.title}</h3>
       <p>${post.content}</p>
       <p><b>Author:</b> ${post.author}</p>
-    
+    <button onclick="deletePost('${post._id}')">
+  Delete
+</button>
         
     </div>
 
     `;
   });
 }
+async function deletePost(id) {
+    if (!confirm("Delete this post?")) return;
 
+    const response = await fetch(
+        `https://blog-backend-ashen-eight.vercel.app/delete-post/${id}`,
+        {
+            method: "DELETE"
+        }
+    );
+
+    const data = await response.json();
+
+    alert("Post Deleted");
+
+    loadPosts();
+}
 loadPosts();
   
 
