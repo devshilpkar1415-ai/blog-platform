@@ -67,8 +67,7 @@ async function createPost() {
   document.getElementById("title").value;
   const content = 
   document.getElementById("content").value;
-  const category =
-  document.getElementById("category").value;
+  
   
 
   
@@ -83,12 +82,13 @@ async function createPost() {
       content: content,
       author:
   localStorage.getItem("username"),
-     category: category,
+     
     })
   });
 
   const data = await response.json();
-  alert(JSON.stringify(data));
+  alert("Post Created Successfully!");
+  window.location.href = "dashboard.html";
 }
 async function addComment(button) {
 
